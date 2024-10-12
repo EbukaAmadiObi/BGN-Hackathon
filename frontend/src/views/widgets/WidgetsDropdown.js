@@ -44,13 +44,13 @@ const WidgetsDropdown = (props) => {
           color="primary"
           value={
             <>
-              26K{' '}
+              26K Feedback Reports{' '}
               <span className="fs-6 fw-normal">
                 (-12.4% <CIcon icon={cilArrowBottom} />)
               </span>
             </>
           }
-          title="Users"
+          title="26k issues have been reported across Reddit. This has resulted in an estimated -10% decrease in revenue"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -131,16 +131,16 @@ const WidgetsDropdown = (props) => {
       </CCol>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
-          color="info"
+          color="danger"
           value={
             <>
               $6.200{' '}
               <span className="fs-6 fw-normal">
-                (40.9% <CIcon icon={cilArrowTop} />)
+                (40.9% <CIcon icon={cilArrowBottom} />)
               </span>
             </>
           }
-          title="Income"
+          title="Loss in Sales"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
@@ -166,7 +166,7 @@ const WidgetsDropdown = (props) => {
                     label: 'My First dataset',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
-                    pointBackgroundColor: getStyle('--cui-info'),
+                    pointBackgroundColor: getStyle('--cui-danger'),
                     data: [1, 18, 9, 17, 34, 22, 11],
                   },
                 ],
