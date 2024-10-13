@@ -1,0 +1,209 @@
+# import json
+# import os
+# from datetime import datetime
+# from concurrent.futures import ThreadPoolExecutor, as_completed
+# from transformers import pipeline
+# from tqdm import tqdm  # For progress bars
+# import multiprocessing
+
+# # Initialize the Hugging Face sentiment analysis pipeline once
+# sentiment_pipeline = pipeline("sentiment-analysis")
+
+# def analyze_sentiment(text):
+#     """
+#     Analyze sentiment using Hugging Face's pipeline.
+    
+#     Args:
+#         text (str): The text to analyze.
+    
+#     Returns:
+#         dict: A dictionary with sentiment label and score.
+#     """
+#     try:
+#         result = sentiment_pipeline(text[:512])[0]  # Truncate to 512 tokens if necessary
+#         return {
+#             "label": result['label'],
+#             "score": result['score']
+#         }
+#     except Exception as e:
+#         print(f"Error analyzing sentiment: {e}")
+#         return {
+#             "label": "UNKNOWN",
+#             "score": 0.0
+#         }
+
+# def process_comments(comments):
+#     """
+#     Recursively process comments and analyze their sentiment.
+    
+#     Args:
+#         comments (list): A list of comment dictionaries.
+    
+#     Returns:
+#         None: Modifies the comments in place by adding sentiment scores.
+#     """
+#     for comment in comments:
+#         text = comment.get('body', '')
+#         sentiment = analyze_sentiment(text)
+#         comment['sentiment'] = sentiment
+#         if 'replies' in comment and comment['replies']:
+#             process_comments(comment['replies'])
+
+# def process_post(post):
+#     """
+#     Process a single post: analyze sentiment of the post and its comments.
+    
+#     Args:
+#         post (dict): A dictionary representing a Reddit post.
+    
+#     Returns:
+#         dict: The post dictionary with added sentiment analysis.
+#     """
+#     post_text = f"{post.get('post_title', '')} {post.get('post_body', '')}"
+#     post_sentiment = analyze_sentiment(post_text)
+#     post['sentiment'] = post_sentiment
+#     process_comments(post.get('comments', []))
+#     return post
+
+# def aggregate_sentiments(data):
+#     """
+#     Aggregate sentiment scores to determine overall sentiment.
+    
+#     Args:
+#         data (list): A list of processed post dictionaries.
+    
+#     Returns:
+#         float: The average compound sentiment score.
+#     """
+#     sentiment_scores = []
+#     for post in data:
+#         if 'sentiment' in post:
+#             label = post['sentiment']['label']
+#             score = post['sentiment']['score']
+#             # Convert labels to numerical scores
+#             if label == 'POSITIVE':
+#                 sentiment_scores.append(score)
+#             elif label == 'NEGATIVE':
+#                 sentiment_scores.append(-score)
+#             else:
+#                 sentiment_scores.append(0)
+#     overall_sentiment = sum(sentiment_scores) / len(sentiment_scores) if sentiment_scores else 0
+#     return overall_sentiment
+
+# def save_to_json(data, subreddit):
+#     """
+#     Save processed data to a JSON file with a timestamp.
+    
+#     Args:
+#         data (list): The processed data.
+#         subreddit (str): The subreddit name.
+    
+#     Returns:
+#         None
+#     """
+#     timestamp = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+#     filename = f'data/{subreddit}/sentiment_{timestamp}.json'
+#     os.makedirs(os.path.dirname(filename), exist_ok=True)
+#     with open(filename, 'w', encoding='utf-8') as f:
+#         json.dump(data, f, indent=2)
+#     print(f"Sentiment data saved to {filename}")
+
+# def main():
+#     subreddit = 'tesco'  # Replace with your target subreddit
+#     input_filename = f'data/{subreddit}/2024-10-13-01-03-50.json'  # Update the filename as needed
+
+#     # Load the scraped data
+#     with open(input_filename, 'r', encoding='utf-8') as f:
+#         data = json.load(f)
+
+#     # Determine the number of workers based on CPU cores
+#     num_workers = multiprocessing.cpu_count()
+
+#     # Process posts in parallel using ThreadPoolExecutor
+#     processed_posts = []
+#     with ThreadPoolExecutor(max_workers=num_workers) as executor:
+#         # Use tqdm for progress bar
+#         futures = {executor.submit(process_post, post): post for post in data}
+#         for future in tqdm(as_completed(futures), total=len(futures), desc="Processing Posts"):
+#             try:
+#                 processed_post = future.result()
+#                 processed_posts.append(processed_post)
+#             except Exception as e:
+#                 print(f"Error processing post: {e}")
+
+#     # Save the data with sentiment scores
+#     save_to_json(processed_posts, subreddit)
+
+#     # Aggregate sentiments
+#     overall_sentiment = aggregate_sentiments(processed_posts)
+#     print(f"Overall sentiment for the subreddit '{subreddit}': {overall_sentiment:.2f}")
+
+# if __name__ == '__main__':
+#     main()
+
+
+
+
+# =============================================
+
+
+
+
+import json
+
+def extract_reviews_to_json(input_data, output_file='extracted_reviews.json'):
+    """
+    Extract all reviews and comments from the input JSON data and save them to a new JSON file.
+    :param input_data: The original JSON data representing Reddit conversations.
+    :param output_file: The file to which the reviews will be saved (default: 'extracted_reviews.json').
+    """
+    # List to store all extracted reviews and comments
+    extracted_reviews = []
+
+    def gather_comments(comments):
+        """
+        Recursive function to gather comments and their replies.
+        """
+        extracted_comments = []
+        for comment in comments:
+            # Add the comment body
+            extracted_comments.append({
+                'text': comment['body'],
+                'user': comment.get('user', 'anonymous'),  # If no user, assign anonymous
+                'time': comment.get('time', 'unknown')  # If no time, set to unknown
+            })
+            # If there are replies, gather them recursively
+            if 'replies' in comment and comment['replies']:
+                extracted_comments.extend(gather_comments(comment['replies']))
+        return extracted_comments
+
+    for post in input_data:
+        # Extract the main post body
+        post_data = {
+            'post_title': post['post_title'],
+            'post_body': post['post_body'],
+            'post_user': post.get('post_user', 'anonymous'),
+            'post_time': post.get('post_time', 'unknown'),
+            'comments': []
+        }
+        
+        # Extract the comments and replies recursively
+        post_data['comments'] = gather_comments(post['comments'])
+
+        # Append the extracted post and comments to the output list
+        extracted_reviews.append(post_data)
+
+    # Write the extracted reviews to the specified JSON file
+    with open(output_file, 'w') as outfile:
+        json.dump(extracted_reviews, outfile, indent=4)
+
+    print(f"Reviews and comments successfully extracted and saved to {output_file}")
+
+# Example usage
+if __name__ == "__main__":
+    # Load the sample JSON data (replace with actual JSON file if available)
+    with open('data/costa/2024-10-13-02-06-33.json', 'r') as f:
+        data = json.load(f)
+
+    # Extract reviews and comments to a separate JSON file
+    extract_reviews_to_json(data, output_file='extracted_reviews.json')
