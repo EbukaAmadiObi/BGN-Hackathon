@@ -146,5 +146,5 @@ if __name__ == "__main__":
     print(json.dumps(result, indent=4))
 
     with open('costa_result.json', 'w') as f:
-        json.dump(result, f)
+        json.dump(result, f, indent = 4)
 
