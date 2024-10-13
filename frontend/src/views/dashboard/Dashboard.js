@@ -1,6 +1,6 @@
 import React from 'react'
-import classNames from 'classnames'
-
+import { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import {
   CAvatar,
   CButton,
@@ -175,9 +175,16 @@ const Dashboard = () => {
       activity: 'Last week',
     },
   ]
+  const [data, setData] = useState(null);
 
+/*{data.comments.map(comment => (
+      <ul>
+        <li>{comment.body}</li>
+      </ul>
+    ))} */
   return (
     <>
+    
       <WidgetsDropdown className="mb-4" />
       <CCard className="mb-4">
         <CCardBody>
