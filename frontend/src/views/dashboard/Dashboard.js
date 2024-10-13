@@ -19,6 +19,8 @@ import {
   CTableDataCell,
   CTableHead,
   CTableHeaderCell,
+  CFormLabel,
+  CFormInput,
   CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -55,6 +57,7 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import MainChart from './MainChart'
+import { bottom } from '@popperjs/core'
 
 const Dashboard = () => {
   const progressExample = [
