@@ -28,6 +28,7 @@
     "@coreui/utils": "^2.0.2",
     "@popperjs/core": "^2.11.8",
     "chart.js": "^4.4.4",
+    "child_process": "^1.0.2",
     "classnames": "^2.5.1",
     "core-js": "^3.38.1",
     "prop-types": "^15.8.1",

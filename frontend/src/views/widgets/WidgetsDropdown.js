@@ -37,6 +37,12 @@ const WidgetsDropdown = (props) => {
     })
   }, [widgetChartRef1, widgetChartRef2])
 
+  
+  const handleClick = (e) => {
+      e.preventDefault();
+      console.log('The link was clicked.');
+      alert('hello world');
+  }
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
@@ -290,6 +296,7 @@ const WidgetsDropdown = (props) => {
           }
         />
       </CCol>
+      
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="danger"
@@ -316,6 +323,7 @@ const WidgetsDropdown = (props) => {
             </CDropdown>
           }
           chart={
+            <button style ={{background: 'transparent', border: 'none'}}onClick = {handleClick}>
             <CChartBar
               className="mt-3 mx-3"
               style={{ height: '70px' }}
@@ -381,10 +389,14 @@ const WidgetsDropdown = (props) => {
                 },
               }}
             />
+            </button>
           }
         />
+        
       </CCol>
+
     </CRow>
+    
   )
 }
 
