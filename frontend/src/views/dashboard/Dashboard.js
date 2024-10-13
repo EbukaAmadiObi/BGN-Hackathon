@@ -9,6 +9,8 @@ import {
   CCardBody,
   CCardFooter,
   CCardHeader,
+  CFormLabel,
+  CFormInput,
   CCol,
   CProgress,
   CRow,
@@ -177,6 +179,23 @@ const Dashboard = () => {
   ]
   const [data, setData] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('../../../../data/costa/data.json');
+        console.log(response)
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+  console.log(data)
+
 /*{data.comments.map(comment => (
       <ul>
         <li>{comment.body}</li>
@@ -184,6 +203,12 @@ const Dashboard = () => {
     ))} */
   return (
     <>
+    <CRow>
+  <CFormLabel style = {{marginRight: '-50px'}} htmlFor="colFormLabelLg" className="col-sm-2 col-form-label col-form-label-lg">Enter Company Name:</CFormLabel>
+  <CCol sm={10} >
+    <CFormInput type="email" className="form-control form-control-lg" id="colFormLabelLg" placeholder="Enter Company Here..."/>
+  </CCol>
+  </CRow>
     
       <WidgetsDropdown className="mb-4" />
       <CCard className="mb-4">
