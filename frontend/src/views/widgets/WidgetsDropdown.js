@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import child_process from 'child_process';
 
 import {
   CRow,
@@ -14,6 +15,7 @@ import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import child_process from 'child_process';
 
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null)
@@ -39,9 +41,13 @@ const WidgetsDropdown = (props) => {
 
   
   const handleClick = (e) => {
-      e.preventDefault();
-      console.log('The link was clicked.');
-      alert('hello world');
+    child_process.exec('python3 ', (error, stdout, stderr) => {
+      if (error) {
+        console.error('Error:', error);
+      } else {
+        console.log('Output:', stdout);
+      }
+    });
   }
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
