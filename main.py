@@ -7,7 +7,7 @@ from datetime import datetime
 from time import sleep
 from random import randint
 
-def get_posts(subreddit, limit=5, time_filter='month'):
+def get_posts(subreddit, limit, time_filter='month'):
     headers = {'User-agent': 'Mozilla/5.0'}
     url = f'https://www.reddit.com/r/{subreddit}/top.json?limit={limit}&t={time_filter}'
     response = requests.get(url, headers=headers)
@@ -81,7 +81,7 @@ def save_to_json(data, subreddit):
 
 def main():
     subreddit = 'costa'  # Replace with your subreddit of choice
-    posts = get_posts(subreddit, limit=5, time_filter='month')
+    posts = get_posts(subreddit, limit=10, time_filter='month')
     all_data = []
     for post in posts:
         post_data = post['data']
