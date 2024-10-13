@@ -1,8 +1,4 @@
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 import requests
 import re
 import json
@@ -137,11 +133,7 @@ class BusinessReviewAnalyzer:
 # Example usage
 if __name__ == "__main__":
     # Load the sample JSON data (replace this with your actual data source)
-<<<<<<< Updated upstream
-    with open('data/costa/2024-10-13-13-22-39.json', 'r') as f:
-=======
     with open('data/costa/2024-10-13-10-12-53.json', 'r') as f:
->>>>>>> Stashed changes
         data = json.load(f)
 
     # Initialize analyzer
@@ -152,10 +144,6 @@ if __name__ == "__main__":
 
     # Print the analysis result
     print(json.dumps(result, indent=4))
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
     with open('costa_result.json', 'w') as f:
         json.dump(result, f, indent = 4)
