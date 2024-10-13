@@ -17,6 +17,8 @@ import {
   CTableDataCell,
   CTableHead,
   CTableHeaderCell,
+  CFormLabel,
+  CFormInput,
   CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -53,6 +55,7 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import MainChart from './MainChart'
+import { bottom } from '@popperjs/core'
 
 const Dashboard = () => {
   const progressExample = [
@@ -178,6 +181,12 @@ const Dashboard = () => {
 
   return (
     <>
+       <CRow style ={{marginBottom: "50px"}}>
+  <CFormLabel style= {{marginRight: "-50px"}} htmlFor="colFormLabelLg" className="col-sm-2 col-form-label col-form-label-lg">Enter Company Name:</CFormLabel>
+  <CCol sm={10} >
+    <CFormInput type="email" className="form-control form-control-lg" id="colFormLabelLg" placeholder="Company Name..."/>
+  </CCol>
+  </CRow>
       <WidgetsDropdown className="mb-4" />
       <CCard className="mb-4">
         <CCardBody>
