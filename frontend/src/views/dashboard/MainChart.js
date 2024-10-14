@@ -1,133 +1,102 @@
-import React, { useEffect, useRef } from 'react'
 
-import { CChartLine } from '@coreui/react-chartjs'
-import { getStyle } from '@coreui/utils'
+// import React, { useEffect, useRef } from 'react'
 
-const MainChart = () => {
-  const chartRef = useRef(null)
+// import { CChartBar } from '@coreui/react-chartjs'
+// import { getStyle } from '@coreui/utils'
 
-  useEffect(() => {
-    document.documentElement.addEventListener('ColorSchemeChange', () => {
-      if (chartRef.current) {
-        setTimeout(() => {
-          chartRef.current.options.scales.x.grid.borderColor = getStyle(
-            '--cui-border-color-translucent',
-          )
-          chartRef.current.options.scales.x.grid.color = getStyle('--cui-border-color-translucent')
-          chartRef.current.options.scales.x.ticks.color = getStyle('--cui-body-color')
-          chartRef.current.options.scales.y.grid.borderColor = getStyle(
-            '--cui-border-color-translucent',
-          )
-          chartRef.current.options.scales.y.grid.color = getStyle('--cui-border-color-translucent')
-          chartRef.current.options.scales.y.ticks.color = getStyle('--cui-body-color')
-          chartRef.current.update()
-        })
-      }
-    })
-  }, [chartRef])
+// import costa_data from '../../../../data/costa/costa_result.json'
 
-  const random = () => Math.round(Math.random() * 100)
+// const MainChart = () => {
+//   const chartRef = useRef(null)
 
-  return (
-    <>
-      <CChartLine
-        ref={chartRef}
-        style={{ height: '300px', marginTop: '40px' }}
-        data={{
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [
-            {
-              label: 'My First dataset',
-              backgroundColor: `rgba(${getStyle('--cui-info-rgb')}, .1)`,
-              borderColor: getStyle('--cui-info'),
-              pointHoverBackgroundColor: getStyle('--cui-info'),
-              borderWidth: 2,
-              data: [
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-              ],
-              fill: true,
-            },
-            {
-              label: 'My Second dataset',
-              backgroundColor: 'transparent',
-              borderColor: getStyle('--cui-success'),
-              pointHoverBackgroundColor: getStyle('--cui-success'),
-              borderWidth: 2,
-              data: [
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-              ],
-            },
-            {
-              label: 'My Third dataset',
-              backgroundColor: 'transparent',
-              borderColor: getStyle('--cui-danger'),
-              pointHoverBackgroundColor: getStyle('--cui-danger'),
-              borderWidth: 1,
-              borderDash: [8, 5],
-              data: [65, 65, 65, 65, 65, 65, 65],
-            },
-          ],
-        }}
-        options={{
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            x: {
-              grid: {
-                color: getStyle('--cui-border-color-translucent'),
-                drawOnChartArea: false,
-              },
-              ticks: {
-                color: getStyle('--cui-body-color'),
-              },
-            },
-            y: {
-              beginAtZero: true,
-              border: {
-                color: getStyle('--cui-border-color-translucent'),
-              },
-              grid: {
-                color: getStyle('--cui-border-color-translucent'),
-              },
-              max: 250,
-              ticks: {
-                color: getStyle('--cui-body-color'),
-                maxTicksLimit: 5,
-                stepSize: Math.ceil(250 / 5),
-              },
-            },
-          },
-          elements: {
-            line: {
-              tension: 0.4,
-            },
-            point: {
-              radius: 0,
-              hitRadius: 10,
-              hoverRadius: 4,
-              hoverBorderWidth: 3,
-            },
-          },
-        }}
-      />
-    </>
-  )
-}
+//   useEffect(() => {
+//     document.documentElement.addEventListener('ColorSchemeChange', () => {
+//       if (chartRef.current) {
+//         setTimeout(() => {
+//           chartRef.current.options.scales.x.grid.borderColor = getStyle(
+//             '--cui-border-color-translucent',
+//           )
+//           chartRef.current.options.scales.x.grid.color = getStyle('--cui-border-color-translucent')
+//           chartRef.current.options.scales.x.ticks.color = getStyle('--cui-body-color')
+//           chartRef.current.options.scales.y.grid.borderColor = getStyle(
+//             '--cui-border-color-translucent',
+//           )
+//           chartRef.current.options.scales.y.grid.color = getStyle('--cui-border-color-translucent')
+//           chartRef.current.options.scales.y.ticks.color = getStyle('--cui-body-color')
+//           chartRef.current.update()
+//         })
+//       }
+//     })
+//   }, [chartRef])
 
-export default MainChart
+//   // const keyTopics = {
+//   //   "Flavor": 14,
+//   //   "Service": 17,
+//   //   "Ingredients": 13,
+//   //   "Price/Value": 17,
+//   //   "Presentation/Appearance": 13
+//   // }
+
+//   const keyTopics = costa_data["key_topics"]
+
+//   return (
+//     <>
+//       <CChartBar
+//         ref={chartRef}
+//         style={{ height: '300px', marginTop: '40px' }}
+//         data={{
+//           labels: Object.keys(keyTopics), // Labels from key_topics
+//           datasets: [
+//             {
+//               label: 'Key Topics Count',
+//               backgroundColor: getStyle('--cui-info'),
+//               data: Object.values(keyTopics), // Data from key_topics
+//             },
+//           ],
+//         }}
+//         options={{
+//           maintainAspectRatio: false,
+//           plugins: {
+//             legend: {
+//               display: false,
+//             },
+
+//             tooltip: {
+//               backgroundColor: 'rgba(0, 0, 0, 0.7)', // Dark background for tooltips
+//               titleColor: '#fff', // White text in tooltips
+//               bodyColor: '#fff',
+//               bodyFont: {
+//                 size: 14,
+//               },
+//               padding: 10,
+//               cornerRadius: 4,
+//             },
+
+//           },
+//           scales: {
+//             x: {
+//               grid: {
+//                 color: getStyle('--cui-border-color-translucent'),
+//                 drawOnChartArea: false,
+//               },
+//               ticks: {
+//                 color: getStyle('--cui-body-color'),
+//               },
+//             },
+//             y: {
+//               beginAtZero: true,
+//               grid: {
+//                 color: getStyle('--cui-border-color-translucent'),
+//               },
+//               ticks: {
+//                 color: getStyle('--cui-body-color'),
+//               },
+//             },
+//           },
+//         }}
+//       />
+//     </>
+//   )
+// }
+
+// export default MainChart

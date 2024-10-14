@@ -1,0 +1,36 @@
+{
+    "query": "latteart",
+    "total_product_sentiment": -0.13437500000000002,
+    "total_mentions": 46,
+    "overall_sentiments": {
+        "Flavor": 0.75,
+        "Presentation/Appearance": 0.0125,
+        "Service": -0.7,
+        "Price/Value": -0.6000000000000001
+    },
+    "key_topics": {
+        "Flavor": 2,
+        "Service": 1,
+        "Ingredients": 0,
+        "Price/Value": 2,
+        "Presentation/Appearance": 8
+    },
+    "example_comments_per_topic": {
+        "Flavor": [
+            "a good rule of thumb is the closer you get to the crema the more defined your lines will be",
+            "bro youre amazing\ni wanna be able to do that so bad"
+        ],
+        "Service": [
+            "wait what you guys are spending 70 for a wpm pitcher\n\nits like 25 bucks thats a scam"
+        ],
+        "Ingredients": [],
+        "Price/Value": [
+            "thats messed up man also i see youre living in the us i believe its just one distributor bringing them in lance talks about them a lot\n\nslow pour if i recall correctly\n\nfor us we can get them officially from authorized distributors for the price i mentioned for the handled ones the handleless ones also are cheaper at about 50 dollars \n\nfor that price you can get a superior pitcher lile the kruve with 3 spouts a better handleless",
+            "yeah slow pour supply is the only distributor in the us always baffled me why these pitchers were so expensive"
+        ],
+        "Presentation/Appearance": [
+            "i cant get oat or almond milk to do anything with 2 i can at least make it look like a child did it",
+            "i know this is an art sub but does anyone know how much caffeine one of these cups have in it it just looks like its mostly pretty cream in a cup"
+        ]
+    }
+}
